@@ -83,7 +83,10 @@ contract TicTacToe {
         
         game.board[position] = msg.sender;
         ++game.roundsPlayed;
-        game.status = updateGameStatus(game, position);
+        GameStatus status = updateGameStatus(game, position);
+        if (status != game.status) {
+            game.status = status;
+        }
 
         emit SquareClaimed(game.player1, game.player2, gameId, game.status);
     }
